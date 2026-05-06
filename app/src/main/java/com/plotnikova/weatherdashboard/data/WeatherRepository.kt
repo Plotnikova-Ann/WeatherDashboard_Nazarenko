@@ -3,10 +3,19 @@ package com.plotnikova.weatherdashboard.data
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-class WeatherRepository{
+class WeatherRepository {
+
+    private var simulateError = false
+
+    fun toggleErrorSimulation() {
+        simulateError = !simulateError
+    }
 
     suspend fun fetchTemperature(): Int {
         delay(2000)
+        if (simulateError) {
+            throw Exception("Сервер недоступен")
+        }
         return Random.nextInt(15, 35)
     }
 
