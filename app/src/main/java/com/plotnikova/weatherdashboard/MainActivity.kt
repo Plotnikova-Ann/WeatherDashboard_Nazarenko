@@ -92,6 +92,16 @@ fun WeatherDashboardScreen(
             isLoading = weatherState.isLoading && weatherState.windSpeed == null
         )
 
+        if (weatherState.weatherIndex != null) {
+            Spacer(modifier = Modifier.height(16.dp))
+            WeatherCard(
+                emoji = "📊",
+                title = "Weather Index",
+                value = "${weatherState.weatherIndex}",
+                isLoading = false
+            )
+        }
+
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
@@ -101,14 +111,6 @@ fun WeatherDashboardScreen(
             Text("🔄 Refresh Weather")
         }
 
-        if (weatherState.loadingProgress.isNotEmpty()) {
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = weatherState.loadingProgress,
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.secondary
-            )
-        }
         Spacer(modifier = Modifier.height(8.dp))
 
         OutlinedButton(
@@ -116,6 +118,15 @@ fun WeatherDashboardScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("⚠️ Simulate Error")
+        }
+
+        if (weatherState.loadingProgress.isNotEmpty()) {
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = weatherState.loadingProgress,
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.secondary
+            )
         }
 
         if (weatherState.error != null) {
