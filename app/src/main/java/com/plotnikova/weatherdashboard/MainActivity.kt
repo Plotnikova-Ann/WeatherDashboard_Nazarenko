@@ -120,6 +120,14 @@ fun WeatherDashboardScreen(
             Text("⚠️ Simulate Error")
         }
 
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = "🔄 Auto-refresh every 10 seconds",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.secondary
+        )
+
         if (weatherState.loadingProgress.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
             Text(

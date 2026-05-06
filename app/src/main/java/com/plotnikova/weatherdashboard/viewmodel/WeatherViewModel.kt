@@ -1,5 +1,6 @@
 package com.plotnikova.weatherdashboard.viewmodel
 
+import android.R.attr.delay
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plotnikova.weatherdashboard.data.WeatherData
@@ -9,6 +10,8 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 
 class WeatherViewModel : ViewModel() {
 
@@ -19,6 +22,8 @@ class WeatherViewModel : ViewModel() {
 
     init {
         loadWeatherData()
+        startAutoRefresh()
+        // viewModelScope автоматически отменит корутину при onCleared()
     }
     /**
      * Демонстрация работы диспетчеров:
@@ -87,5 +92,17 @@ class WeatherViewModel : ViewModel() {
 
     fun toggleErrorSimulation() {
         repository.toggleErrorSimulation()
+    }
+    private fun startAutoRefresh() {
+        viewModelScope.launch {
+            flow {
+                while (true) {
+                    delay(10000)
+                    emit(Unit)
+                }
+            }.collect {
+                loadWeatherData()
+            }
+        }
     }
 }
