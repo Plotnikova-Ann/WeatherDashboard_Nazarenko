@@ -1,7 +1,9 @@
+package com.plotnikova.weatherdashboard.data
+
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-class WeatherRepository {
+class WeatherRepository{
 
     suspend fun fetchTemperature(): Int {
         delay(2000)
